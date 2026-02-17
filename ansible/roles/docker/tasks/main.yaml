@@ -1,0 +1,7 @@
+---
+- name: Play needed tasks in order
+  ansible.builtin.include_tasks: "{{ files }}"
+  with_items:
+    - docker_prerequisites.yaml
+  loop_control:
+    loop_var: files

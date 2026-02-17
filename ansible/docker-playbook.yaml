@@ -1,0 +1,8 @@
+---
+- name: Docker Playbook
+  hosts: docker
+  become: true
+  gather_facts: true
+
+  roles:
+    - docker
