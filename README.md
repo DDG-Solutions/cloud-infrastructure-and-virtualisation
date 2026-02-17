@@ -11,6 +11,12 @@ This repository will contain notes, documents and our submission for CA1 assignm
 [bash-scripts](./bash-scripts/)
 - Some initial scripts to perform the work from the [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)
 
+[ansible](./ansible/)
+- This directory contains some ansible scripts to install and configure docker on a target host/hosts.
+    [inventory.ini](./ansible/inventory.ini)
+    This file should contain a list of the systems you wish to install docker on.
+
+
 ## Reference Documentation
 [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)  
 Docker workshop linked above was discussed in class 16th February 2026 where lecturer advised our CA would essentially be based off Parts 1 to 7.
