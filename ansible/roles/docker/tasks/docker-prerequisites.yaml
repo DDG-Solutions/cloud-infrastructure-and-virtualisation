@@ -1,11 +1,11 @@
 ---
-- name: apt update cache
+- name: Update apt cache
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 36000
 - name: Remove old docker versions if present
   ansible.builtin.apt:
-    name: 
+    name:
       - docker
       - docker-engine
       - docker.io
