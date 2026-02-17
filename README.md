@@ -8,6 +8,8 @@ This repository will contain notes, documents and our submission for CA1 assignm
 - Actual Assignment Brief
 - Meeting notes (if applicable)
 
+[bash-scripts](./bash-scripts/)
+- Some initial scripts to perform the work from the [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)
 
 ## Reference Documentation
 [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)  
