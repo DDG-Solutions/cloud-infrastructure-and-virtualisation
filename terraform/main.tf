@@ -3,7 +3,7 @@
 # -------------------------------------------------------------------
 resource "azurerm_resource_group" "ca2" {
   name     = "CA-2"
-  location = "francecentral"
+  location = var.location
 }
 
 # -------------------------------------------------------------------
@@ -75,7 +75,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "ca2-vm"
   location            = azurerm_resource_group.ca2.location
   resource_group_name = azurerm_resource_group.ca2.name
-  size                = "Standard_B2ats_v2"
+  size                = var.vm_size
   admin_username      = "azureuser"
   zone                = "3"
 
