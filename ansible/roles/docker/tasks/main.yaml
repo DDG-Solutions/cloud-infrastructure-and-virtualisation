@@ -2,7 +2,7 @@
 - name: Play needed tasks in order
   ansible.builtin.include_tasks: "{{ files }}"
   with_items:
-    - docker_prerequisites.yaml
+    - docker-prerequisites.yaml
     - docker-install.yaml
   loop_control:
     loop_var: files
