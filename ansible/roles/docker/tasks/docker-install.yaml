@@ -36,3 +36,4 @@
   loop:
     - docker
     - dstuartkelly
+    - azureuser
