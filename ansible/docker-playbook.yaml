@@ -1,6 +1,6 @@
 ---
 - name: Docker Playbook
-  hosts: docker
+  hosts: CA2
   become: true
   gather_facts: true
 
