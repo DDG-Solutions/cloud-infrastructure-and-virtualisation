@@ -24,46 +24,41 @@ This project is our submission for CA_2 and uses [Terraform](https://www.terrafo
 [terraform](./terraform/)
 
 - This directory contains the terraform files required to deploy a virtual machine and associated resources into Azure.
-    [main.tf](./terraform/main.tf)
-        Main terraform file which creates the resource group and virtual machine
-    [networking.tf](./terraform/networking.tf)
-        This file creates the network to support the virtial machine and security group to allow inbound SSH connections.
-    [outputs.tf](./terraform/outputs.tf)
-        This file creates outputs from terraform which includes an ansible inventory file and the public IP Address of the machine displayed on screen.
-    [provider.tf](./terraform/provider.tf)
-        Azure Provider
-    [terraform.tfstate](./terraform/terraform.tfstate)
-        Terraform State file
-    [terraform.tfstate.backup](./terraform/terraform.tfstate.backup)
-        Backup of terraform state file
-    [variables.tf](./terraform/variables.tf)
-        Variables used to define what ssh key should be used, region to deploy to and instance/vm size to be used.
+    [main.tf](./terraform/main.tf)  
+        Main terraform file which creates the resource group and virtual machine  
+    [networking.tf](./terraform/networking.tf)  
+        This file creates the network to support the virtial machine and security group to allow inbound SSH connections.  
+    [outputs.tf](./terraform/outputs.tf)  
+        This file creates outputs from terraform which includes an ansible inventory file and the public IP Address of the machine displayed on screen.  
+    [provider.tf](./terraform/provider.tf)  
+        Azure Provider  
+    [terraform.tfstate](./terraform/terraform.tfstate)  
+        Terraform State file  
+    [terraform.tfstate.backup](./terraform/terraform.tfstate.backup)  
+        Backup of terraform state file  
+    [variables.tf](./terraform/variables.tf)  
+        Variables used to define what ssh key should be used, region to deploy to and instance/vm size to be used.  
 
 ## Reference Documentation
 
-[Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)  
-Docker workshop linked above was discussed in class 16th February 2026 where lecturer advised our CA would essentially be based off Parts 1 to 7.
-
-[Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
-
-[Terraform Azure Virtual Machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine)
-
-[Ansible Collection Documentation](https://docs.ansible.com/projects/ansible/latest/collections/index.html)
-[Ansible.Builtin Collection](https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html)
+- [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)  
+- [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
+- [Terraform Azure Virtual Machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine)
+- [Ansible Collection Documentation](https://docs.ansible.com/projects/ansible/latest/collections/index.html)  
+- [Ansible.Builtin Collection](https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html)
 
 
 ## How to deploy stuff and things
 
 ### Prerequisites
-[Terraform installation](https://developer.hashicorp.com/terraform/install)
-[Ansible installation](https://docs.ansible.com/projects/ansible/latest/installation_guide/installation_distros.html)
-[Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
-[Sign into Azure from the CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
+
+- [Terraform should be installed and working.](https://developer.hashicorp.com/terraform/install)
+- [Ansible should be installed and working.](https://docs.ansible.com/projects/ansible/latest/installation_guide/installation_distros.html)
+- [Azure CLI should be installed, configured and working.](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+- [Sign into Azure using az login.](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
 
 ### Use terraform to create a virtual machine in Azure
-
-#### Steps to create virtual machine
-navigate to the terraform directory and execute a terraform apply
+Navigate to the terraform directory and execute a terraform apply
 ```bash
 cd terraform
 terraform apply
@@ -81,9 +76,9 @@ Expected Resources:
 8. Virtual Network
 9. Ansible inventory file
 
-When creation has completed, Terraform will output the Public IPAddress of the host that it has created.
+When creation has completed, Terraform will advise that it has completed and output the Public IPAddress of the host that it has created.
 
-### Use Ansbile to install docker
+### Use Ansbile to install docker on the new Azure virtual machine
 
 navigate to the ansible directory and run the playbook
 
