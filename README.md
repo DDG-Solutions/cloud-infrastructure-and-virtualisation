@@ -2,7 +2,7 @@
 
 This is a shared repository for DDG Solutions - 3 Students studying a Higher Diploma in Science in Computing with Dublin Business School
 
-This repository will contain notes, documents and our submission for CA1 assignment for our Cloud Infrastructure and Virtualisation Module.
+This project is our submission for CA_2 and uses [Terraform](https://www.terraform.io/), [Ansible](https://www.ansible.com/) to create an environment in Azure which will be used as part of the assignment.
 
 ## Whats in this repo?
 
@@ -54,11 +54,13 @@ Docker workshop linked above was discussed in class 16th February 2026 where lec
 
 ## How to deploy stuff and things
 
-### Use terraform to create a virtual machine in Azure
+### Prerequisites
+[Terraform installation](https://developer.hashicorp.com/terraform/install)
+[Ansible installation](https://docs.ansible.com/projects/ansible/latest/installation_guide/installation_distros.html)
+[Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+[Sign into Azure from the CLI](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
 
-#### Requirements for applying terraform
-- You must have an Azure subscription and Azure CLI installed.
-- You must use ``az login`` to log into the Azure account and select the appropriate subscription.
+### Use terraform to create a virtual machine in Azure
 
 #### Steps to create virtual machine
 navigate to the terraform directory and execute a terraform apply
