@@ -10,3 +10,11 @@ output "ssh_command" {
   description = "SSH command to connect to the VM"
   value       = "ssh azureuser@${azurerm_public_ip.pip.ip_address}"
 }
+
+resource "local_file" "ansible_inventory" {
+  content = templatefile("${path.module}/../ansible/inventory.tpl", {
+    hostname  = azurerm_linux_virtual_machine.vm.name
+    public_ip = azurerm_public_ip.pip.ip_address
+  })
+  filename = "${path.module}/../ansible/inventory.ini"
+}
