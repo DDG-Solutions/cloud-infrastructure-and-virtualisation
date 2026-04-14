@@ -1,4 +1,15 @@
 services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
   personalityshop-client:
     image: dstuartkelly/personalityshop-client:latest
     container_name: personalityshop-client
@@ -25,3 +36,6 @@ services:
 networks:
   web-and-cloud-application-development_default:
     external: true
+
+volumes:
+  mongo_data:
