@@ -9,20 +9,22 @@ services:
       - '27017:27017'
     volumes:
       - mongo_data:/data/db
-
-  personalityshop-client:
-    image: dstuartkelly/personalityshop-client:latest
-    container_name: personalityshop-client
-    ports:
-      - '5173:80'
-    networks:
-      - web-and-cloud-application-development_default
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   personalityshop-server:
     image: dstuartkelly/personalityshop-server:latest
     container_name: personalityshop-server
     ports:
       - '3001:3001'
+
+    depends_on:
+      mongo:
+        condition: service_healthy
+
     environment:
       - MONGO_URI=${MONGO_URI}
       - PORT=3001
@@ -30,6 +32,14 @@ services:
       - MONGO_PASSWORD=${MONGO_PASSWORD}
       - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+    networks:
+      - web-and-cloud-application-development_default
+
+    personalityshop-client:
+    image: dstuartkelly/personalityshop-client:latest
+    container_name: personalityshop-client
+    ports:
+      - '5173:80'
     networks:
       - web-and-cloud-application-development_default
 
