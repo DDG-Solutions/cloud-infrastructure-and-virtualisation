@@ -1,9 +1,20 @@
 services:
+  personalityshop-client:
+    image: dstuartkelly/personalityshop-client:latest
+    container_name: personalityshop-client
+    ports:
+      - '3000:3000'
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - REACT_APP_STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+    networks:
+      - web-and-cloud-application-development_default
+
   personalityshop-server:
     image: dstuartkelly/personalityshop-server:latest
     container_name: personalityshop-server
     ports:
-      - "3001:3001"
+      - '3001:3001'
     environment:
       - MONGO_URI=${MONGO_URI}
       - PORT=3001
