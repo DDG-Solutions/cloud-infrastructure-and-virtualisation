@@ -3,10 +3,7 @@ services:
     image: dstuartkelly/personalityshop-client:latest
     container_name: personalityshop-client
     ports:
-      - '3000:3000'
-    environment:
-      - VITE_API_URL=${VITE_API_URL}
-      - REACT_APP_STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - '5173:80'
     networks:
       - web-and-cloud-application-development_default
 
