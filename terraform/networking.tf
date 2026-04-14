@@ -37,19 +37,31 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"
+    source_address_prefix      = "95.44.98.27"
     destination_address_prefix = "*"
   }
 
     security_rule {
-    name                       = "allow-3000"
+    name                       = "allow-80"
     priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "3000"
-    source_address_prefix      = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "95.44.98.27"
+    destination_address_prefix = "*"
+  }
+
+    security_rule {
+    name                       = "allow-3001"
+    priority                   = 102
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3001"
+    source_address_prefix      = "95.44.98.27"
     destination_address_prefix = "*"
   }
 }
