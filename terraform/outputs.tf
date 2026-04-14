@@ -8,7 +8,7 @@ output "public_ip_address" {
 
 output "ssh_command" {
   description = "SSH command to connect to the VM"
-  value       = "ssh azureuser@${azurerm_public_ip.pip.ip_address}"
+  value       = "ssh -i {path.module}/id_rsa_ca2 azureuser@${azurerm_public_ip.pip.ip_address}"
 }
 
 resource "local_file" "ansible_inventory" {
