@@ -1,0 +1,19 @@
+services:
+  personalityshop-server:
+    image: dstuartkelly/personalityshop-server:latest
+    container_name: personalityshop-server
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=3001
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+    networks:
+      - web-and-cloud-application-development_default
+
+networks:
+  web-and-cloud-application-development_default:
+    external: true
