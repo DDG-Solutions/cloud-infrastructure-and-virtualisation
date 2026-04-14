@@ -1,9 +1,21 @@
 services:
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - web-and-cloud-application-development_default
+
   personalityshop-client:
     image: dstuartkelly/personalityshop-client:latest
     container_name: personalityshop-client
     ports:
-      - '3000:3000'
+      - '80:80'
     environment:
       - VITE_API_URL=${VITE_API_URL}
       - REACT_APP_STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
@@ -27,4 +39,6 @@ services:
 
 networks:
   web-and-cloud-application-development_default:
-    external: true
+
+volumes:
+  mongo_data:
