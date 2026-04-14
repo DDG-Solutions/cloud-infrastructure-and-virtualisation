@@ -4,5 +4,6 @@
   with_items:
     - docker-prerequisites.yaml
     - docker-install.yaml
+    - file-copy.yaml
   loop_control:
     loop_var: files

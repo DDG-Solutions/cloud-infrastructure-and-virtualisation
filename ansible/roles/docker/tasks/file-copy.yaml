@@ -1,0 +1,9 @@
+---
+- name: copy docker-compose
+  ansible.builtin.copy:
+    src: docker-compose.yaml
+    dest: /home/azureuser/docker-compose.yaml
+- name: copy .env
+  ansible.builtin.copy:
+    src: .env
+    dest: /home/azureuser/.env
