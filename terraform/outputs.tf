@@ -12,7 +12,7 @@ output "ssh_command" {
 }
 
 resource "local_file" "ansible_inventory" {
-  content = templatefile("${path.module}/../ansible/inventory.tpl", {
+  content = templatefile("${path.module}/../ansible/roles/docker/files/inventory.tpl", {
     hostname  = azurerm_linux_virtual_machine.vm.name
     public_ip = azurerm_public_ip.pip.ip_address
   })
