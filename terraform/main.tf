@@ -10,7 +10,8 @@ resource "azurerm_resource_group" "ca2" {
 # Virtual Machine
 # -------------------------------------------------------------------
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "ca2-vm"
+  count               = 2
+  name                = "ca2-vm-${count.index}"
   location            = azurerm_resource_group.ca2.location
   resource_group_name = azurerm_resource_group.ca2.name
   size                = var.vm_size
@@ -18,7 +19,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   zone                = "3"
 
   network_interface_ids = [
-    azurerm_network_interface.nic.id
+    azurerm_network_interface.nic[count.index].id
   ]
 
   admin_ssh_key {
@@ -27,6 +28,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   os_disk {
+    name                 = "osdisk-${count.index}"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }

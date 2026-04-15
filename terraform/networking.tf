@@ -16,7 +16,8 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_public_ip" "pip" {
-  name                = "ca2-pip"
+  count               = 2
+  name                = "ca2-pip-${count.index}"
   location            = azurerm_resource_group.ca2.location
   resource_group_name = azurerm_resource_group.ca2.name
   allocation_method   = "Static"
@@ -91,7 +92,8 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "ca2-nic"
+  count               = 2
+  name                = "ca2-nic-${count.index}"
   location            = azurerm_resource_group.ca2.location
   resource_group_name = azurerm_resource_group.ca2.name
 
@@ -99,11 +101,12 @@ resource "azurerm_network_interface" "nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.pip.id
+    public_ip_address_id          = azurerm_public_ip.pip[count.index].id
   }
 }
 
 resource "azurerm_network_interface_security_group_association" "nic_nsg" {
-  network_interface_id      = azurerm_network_interface.nic.id
+  count                     = 2
+  network_interface_id      = azurerm_network_interface.nic[count.index].id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
