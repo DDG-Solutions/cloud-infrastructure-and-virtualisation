@@ -16,7 +16,8 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_public_ip" "pip" {
-  name                = "ca2-pip"
+  count               = 2
+  name                = "ca2-pip-${count.index}"
   location            = azurerm_resource_group.ca2.location
   resource_group_name = azurerm_resource_group.ca2.name
   allocation_method   = "Static"
@@ -37,13 +38,62 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"
+    source_address_prefix      = "95.44.98.27"
+    destination_address_prefix = "*"
+  }
+
+    security_rule {
+    name                       = "allow-mongo-express"
+    priority                   = 101
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "8081"
+    source_address_prefix      = "95.44.98.27"
+    destination_address_prefix = "*"
+  }
+
+    security_rule {
+    name                       = "allow-api"
+    priority                   = 102
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3001"
+    source_address_prefix      = "95.44.98.27"
+    destination_address_prefix = "*"
+  }
+
+    security_rule {
+    name                       = "allow-frontend"
+    priority                   = 103
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "5173"
+    source_address_prefix      = "95.44.98.27"
+    destination_address_prefix = "*"
+  }
+
+    security_rule {
+    name                       = "allow-http"
+    priority                   = 104
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "95.44.98.27"
     destination_address_prefix = "*"
   }
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "ca2-nic"
+  count               = 2
+  name                = "ca2-nic-${count.index}"
   location            = azurerm_resource_group.ca2.location
   resource_group_name = azurerm_resource_group.ca2.name
 
@@ -51,11 +101,12 @@ resource "azurerm_network_interface" "nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.pip.id
+    public_ip_address_id          = azurerm_public_ip.pip[count.index].id
   }
 }
 
 resource "azurerm_network_interface_security_group_association" "nic_nsg" {
-  network_interface_id      = azurerm_network_interface.nic.id
+  count                     = 2
+  network_interface_id      = azurerm_network_interface.nic[count.index].id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
