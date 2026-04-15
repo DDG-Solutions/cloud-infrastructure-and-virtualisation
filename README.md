@@ -90,3 +90,17 @@ navigate to the ansible directory and run the playbook
 cd ../ansible
 ansible-playbook -i inventory.ini docker-playbook.yaml 
 ```
+
+### Start the application stack
+
+SSH onto the server, pull the docker images and start
+```bash
+ssh -i id_rsa_ca2 azureuser@host
+docker compose pull
+docker compose up -d
+```
+
+Test access to the services
+[Mongo Express](http://20.199.43.54:8081/)
+[API Server](http://20.199.43.54:3001/)
+[Personality Shop](http://20.199.43.54/)
