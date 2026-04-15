@@ -25,7 +25,7 @@ services:
       - web-and-cloud-application-development_default
 
   personalityshop-server:
-    image: dstuartkelly/personalityshop-server:1.0.2
+    image: dstuartkelly/personalityshop-server:1.0.3
     container_name: personalityshop-server
     ports:
       - '3001:3001'
