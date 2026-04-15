@@ -17,7 +17,7 @@ This project is our submission for CA_2 and uses [Terraform](https://www.terrafo
 
 [ansible](./ansible/)
 
-- This directory contains some ansible scripts to install and configure docker on a target host/hosts.
+- This directory contains an ansible role and associated plays to install and configure docker on a target host/hosts.
     [inventory.ini](./ansible/inventory.ini)
     This file should contain a list of the systems you wish to install docker on.
 
