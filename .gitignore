@@ -2,3 +2,4 @@
 .vscode
 .~lock*
 .env
+id_rsa*
