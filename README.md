@@ -36,6 +36,8 @@ This project is our submission for CA_2 and uses [Terraform](https://www.terrafo
         Terraform State file  
     [terraform.tfstate.backup](./terraform/terraform.tfstate.backup)  
         Backup of terraform state file  
+    [ssh-keys.tf](./terraform/ssh-keys.tf)
+        Creates SSH Private and Public keys for connecting to the Virtual machine
     [variables.tf](./terraform/variables.tf)  
         Variables used to define what ssh key should be used, region to deploy to and instance/vm size to be used.  
 
@@ -75,6 +77,8 @@ Expected Resources:
 7. Subnet
 8. Virtual Network
 9. Ansible inventory file
+10. SSH Private Key file
+11. SSH Public Key file
 
 When creation has completed, Terraform will advise that it has completed and output the Public IPAddress of the host that it has created.
 

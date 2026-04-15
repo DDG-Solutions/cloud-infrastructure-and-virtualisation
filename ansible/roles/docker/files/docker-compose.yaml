@@ -11,14 +11,16 @@ services:
     networks:
       - web-and-cloud-application-development_default
 
-  personalityshop-client:
-    image: dstuartkelly/personalityshop-client:latest
-    container_name: personalityshop-client
+  mongo-express:
+    image: mongo-express
+    restart: always
     ports:
-      - '80:80'
+      - '8081:8081'
     environment:
-      - VITE_API_URL=${VITE_API_URL}
-      - REACT_APP_STRIPE_PUBLISHABLE_KEY=${STRIPE_PUBLISHABLE_KEY}
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_BASICAUTH_ENABLED: true
+      ME_CONFIG_BASICAUTH_USERNAME: mongoexpressuser
+      ME_CONFIG_BASICAUTH_PASSWORD: mongoexpresspass
     networks:
       - web-and-cloud-application-development_default
 

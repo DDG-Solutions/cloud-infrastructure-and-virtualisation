@@ -42,19 +42,19 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
     security_rule {
-    name                       = "allow-80"
+    name                       = "allow-mongo-express"
     priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "80"
+    destination_port_range     = "8081"
     source_address_prefix      = "95.44.98.27"
     destination_address_prefix = "*"
   }
 
     security_rule {
-    name                       = "allow-3001"
+    name                       = "allow-api"
     priority                   = 102
     direction                  = "Inbound"
     access                     = "Allow"
