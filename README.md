@@ -18,37 +18,37 @@ This project is our submission for CA_2 and uses [Terraform](https://www.terrafo
 [ansible](./ansible/)
 
 - This directory contains an ansible role and associated plays to install and configure docker on a target host/hosts.
-    [inventory.ini](./ansible/inventory.ini)
-    This file should contain a list of the systems you wish to install docker on.
+  [inventory.ini](./ansible/inventory.ini)
+  This file should contain a list of the systems you wish to install docker on.
 
 [terraform](./terraform/)
 
 - This directory contains the terraform files required to deploy a virtual machine and associated resources into Azure.
-    [main.tf](./terraform/main.tf)  
-        Main terraform file which creates the resource group and virtual machine  
-    [networking.tf](./terraform/networking.tf)  
-        This file creates the network to support the virtial machine and security group to allow inbound SSH connections.  
-    [outputs.tf](./terraform/outputs.tf)  
-        This file creates outputs from terraform which includes an ansible inventory file and the public IP Address of the machine displayed on screen.  
-    [provider.tf](./terraform/provider.tf)  
-        Azure Provider  
-    [terraform.tfstate](./terraform/terraform.tfstate)  
-        Terraform State file  
-    [terraform.tfstate.backup](./terraform/terraform.tfstate.backup)  
-        Backup of terraform state file  
-    [ssh-keys.tf](./terraform/ssh-keys.tf)
-        Creates SSH Private and Public keys for connecting to the Virtual machine
-    [variables.tf](./terraform/variables.tf)  
-        Variables used to define what ssh key should be used, region to deploy to and instance/vm size to be used.  
+  [main.tf](./terraform/main.tf)  
+   Main terraform file which creates the resource group and virtual machine  
+   [networking.tf](./terraform/networking.tf)  
+   This file creates the network to support the virtial machine and security group to allow inbound SSH connections.  
+   [outputs.tf](./terraform/outputs.tf)  
+   This file creates outputs from terraform which includes an ansible inventory file and the public IP Address of the machine displayed on screen.  
+   [provider.tf](./terraform/provider.tf)  
+   Azure Provider  
+   [terraform.tfstate](./terraform/terraform.tfstate)  
+   Terraform State file  
+   [terraform.tfstate.backup](./terraform/terraform.tfstate.backup)  
+   Backup of terraform state file  
+   [ssh-keys.tf](./terraform/ssh-keys.tf)
+  Creates SSH Private and Public keys for connecting to the Virtual machine
+  [variables.tf](./terraform/variables.tf)  
+   Variables used to define what ssh key should be used, region to deploy to and instance/vm size to be used.
 
 ## Reference Documentation
 
-- [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)  
+- [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)
 - [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 - [Terraform Azure Virtual Machine](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine)
-- [Ansible Collection Documentation](https://docs.ansible.com/projects/ansible/latest/collections/index.html)  
+- [Ansible Collection Documentation](https://docs.ansible.com/projects/ansible/latest/collections/index.html)
 - [Ansible.Builtin Collection](https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html)
-
+- [DockerHub Nginx - official image](https://hub.docker.com/_/nginx)
 
 ## How to deploy stuff and things
 
@@ -60,14 +60,18 @@ This project is our submission for CA_2 and uses [Terraform](https://www.terrafo
 - [Sign into Azure using az login.](https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively)
 
 ### Use terraform to create a virtual machine in Azure
+
 Navigate to the terraform directory and execute a terraform apply
+
 ```bash
 cd terraform
 terraform apply
 ```
-Terraform will show you the changes it is going to make in your Azure subscription, review these to ensure you know what you are deploying and if you are satisfied type ``yes``
+
+Terraform will show you the changes it is going to make in your Azure subscription, review these to ensure you know what you are deploying and if you are satisfied type `yes`
 
 Expected Resources:
+
 1. Virtual Machine
 2. Network Interface
 3. Security Group Association (With the network interface)
@@ -88,12 +92,13 @@ navigate to the ansible directory and run the playbook
 
 ```bash
 cd ../ansible
-ansible-playbook -i inventory.ini docker-playbook.yaml 
+ansible-playbook -i inventory.ini docker-playbook.yaml
 ```
 
 ### Start the application stack
 
 SSH onto the server, pull the docker images and start
+
 ```bash
 ssh -i id_rsa_ca2 azureuser@host
 docker compose pull
