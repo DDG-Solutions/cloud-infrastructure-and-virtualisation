@@ -59,6 +59,9 @@ services:
       - VITE_API_URL=${VITE_API_URL}
     networks:
       - web-and-cloud-application-development_default
+    depends_on:
+      personalityshop-server:
+        condition: service_started
 
 networks:
   web-and-cloud-application-development_default:
