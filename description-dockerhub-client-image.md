@@ -1,0 +1,86 @@
+# Personalityshop Client Docker Image
+
+## What is Personalityshop-client
+
+Personalityshop-client is a frontend web application built with modern JavaScript tooling (Node.js + Vite).
+
+This Docker image uses a multi-stage build to:
+
+- Build the application in a Node.js environment
+- Serve the generated static files using Nginx
+
+Nginx is a high-performance web server commonly used to serve static content efficiently, with low memory usage and high concurrency.
+
+---
+
+## Multi-Container Application Context
+
+This image is not intended to run standalone. It is part of a multi-container application that works together with:
+
+- Personalityshop-server (backend API)
+- MongoDB (database)
+- Mongo Express (database UI)
+
+These services are orchestrated using Docker Compose, allowing them to communicate over a shared network.
+
+The frontend communicates with the backend via API requests, which are routed internally within the Docker network.
+
+---
+
+## Environment Variables (.env)
+
+Before running the application, you must configure a `.env` file with the required environment variables.
+
+### Required variables include:
+
+- **Frontend**
+  - `VITE_API_URL` → URL of the backend API
+
+- **Backend / Database**
+  - `MONGO_URI`
+  - `MONGO_USER`
+  - `MONGO_PASSWORD`
+
+- **Firebase**
+  - Firebase configuration keys
+
+These variables are injected into the containers at runtime via Docker Compose.
+
+---
+
+## Nginx Configuration
+
+The frontend container includes a custom `nginx.conf` file to properly handle application behavior.
+
+### Key features:
+
+- **SPA Routing Support**
+  ```nginx
+  try_files $uri $uri/ /index.html;
+  ```
+
+Ensures that all non-file requests are redirected to index.html, allowing React Router to handle client-side navigation.
+
+### Reverse Proxy to Backend
+
+```nginx
+location /api
+location /images
+```
+
+Requests to /api and /images are forwarded to the personalityshop-server container.
+
+### Benefits of this setup:
+
+- Simplifies frontend API calls (no need for hardcoded backend URLs)
+- Enables seamless communication between containers
+- Avoids CORS issues by routing through the same origin
+
+## How It Works Together
+
+When running with Docker Compose:
+
+1. The frontend is served via Nginx
+2. API requests (/api, /images) are proxied to the backend container
+3. The backend connects to MongoDB using environment variables
+4. All services communicate over the same Docker network
