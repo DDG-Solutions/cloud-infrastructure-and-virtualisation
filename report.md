@@ -126,23 +126,24 @@ The VM was provisioned by navigating to the `terraform/` directory and running `
 
 1. Resource Group (`CA-2`)
 2. Virtual Network and Subnet
-3. Network Security Group with SSH inbound rule
+3. Network Security Group with associated inbound rules
 4. Public IP Address
 5. Network Interface
 6. Ubuntu 24.04 LTS Virtual Machine (`Standard_B2ats_v2`)
 7. Ansible inventory file (auto-generated)
+8. SSH Public and Private keys
 
 ### 4.2 Configuration Management
 
-With the VM provisioned, Ansible was run from the `ansible/` directory using the auto-generated inventory file. The Docker playbook executed two task files in sequence: `docker-prerequisites.yaml` installed required packages and dependencies, and `docker-install.yaml` added the Docker repository, installed Docker Engine and the Compose plugin, enabled the Docker service, and configured user group permissions.
+With the VM provisioned, Ansible was run from the `ansible/` directory using the auto-generated inventory file. The Docker playbook executed four task files in sequence: `docker-prerequisites.yaml` installed required packages and dependencies, and `docker-install.yaml` adds the Docker repository, installs Docker Engine and the Compose plugin, enables the Docker service, and configured user group permissions.
 
 ### 4.3 Application Deployment
 
-With Docker installed on the VM, the `docker-compose.yml` and `.env` files were transferred to the VM. Running `docker compose up -d` pulled the images from Docker Hub and started all three containers. The MongoDB health check ensured the database was accepting connections before the backend started, and the frontend was accessible on port 5173.
+With Docker installed on the VM, ansible continues with the application deployment by running `file-copy.yaml` which copies up the docker-compose.yaml and the .env files with required variables and finally `start-personalityshop.yaml` making sure that docker compose pulls the images from Docker Hub and starts the full application stack.
 
 ### 4.4 Challenges and Solutions
 
-- **Service Startup Order**: Initially the backend would attempt to connect to MongoDB before the database was ready, causing connection errors. This was resolved by adding a health check to the MongoDB service and a `depends_on` condition with `service_healthy` on the backend.
+- **Service Startup Order**: Sometimes the backend service can attempt to connect to MongoDB before the database was ready, causing connection errors. This was resolved by adding a health check to the MongoDB service and a `depends_on` condition with `service_healthy` on the backend.
 - **Sensitive Configuration**: Hardcoding credentials in `docker-compose.yml` was identified as a security risk early on. We adopted a `.env` file approach with variable substitution and added `.env` to `.gitignore`, providing a `.env.template` for reference.
 - **Cross-Repository Coordination**: The application source code lives in separate repositories (server and client), while the infrastructure configuration is in this repository. CI/CD pipelines bridge this gap by building and pushing Docker images to Docker Hub, which the infrastructure repository references.
 
