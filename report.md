@@ -93,17 +93,17 @@ The Personality Shop consists of three components, each containerised independen
 |-----------|-----------|-------------|------|
 | Database | MongoDB | `mongo` (official) | 27017 |
 | Backend | Node.js, Express | `dstuartkelly/personalityshop-server` | 3001 |
-| Frontend | React, Vite | `dstuartkelly/personalityshop-client` | 5173:80 |
+| Frontend | React, Vite | `dstuartkelly/personalityshop-client` | 80 |
 
 The official MongoDB image from Docker Hub was used directly, configured with root credentials via `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` environment variables as documented in the official image reference.
 
 The backend and frontend images were built from custom Dockerfiles. The server Dockerfile uses `node:20-alpine` as a base image, copies the application source, installs dependencies, and exposes port 3001. Both images are built and pushed to Docker Hub via CI/CD pipelines using GitHub Actions.
 
-The frontend image has a multi-stage Docker build approach for production environments. Node.js (`node:20-alpine`) is used in the first stage as base image to install dependencies and build the React application using Vite that produces static assets in a `/dist` directory. The second stage uses an Nginx (`nginx:stable-alpine`) image to serve these static files efficiently.
+The frontend image has a multi-stage Docker build approach for production environments. Node.js (`node:20-alpine`) is used in the first stage as base image to install dependencies and build the React application using Vite that produces static assets in a `/dist` directory. The second stage uses an Nginx (`nginx:stable-alpine`) image to serve these static files.
 
 This approach separates the build stage from the runtime stage that reduces the image size and improves security by removing unnecessary tools. The Nginx then serves the static files as a lightweight, high-performance web server in production.
 
-Additionally, the frontend container includes a custom `nginx.conf` file to support single-page-application routing. Without configuration, Nginx would return 404 error for the routes as navigation happens on the client side. This configuration file solves this by redirecting any request that does not match a real file to `index.html`, where React handles the routing in the browser.
+Additionally, the frontend container includes a custom `nginx.conf` file which is configured to reverse proxy requests to the backend API. This means that the calls will work without the need for CORS (Cross Origin Resource Sharing) configuration.
 
 ### 3.2 Docker Compose Orchestration
 
