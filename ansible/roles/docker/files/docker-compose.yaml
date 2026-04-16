@@ -10,6 +10,12 @@ services:
       - mongo_data:/data/db
     networks:
       - web-and-cloud-application-development_default
+    healthcheck:
+      test: ['CMD', 'mongosh', '--eval', "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   mongo-express:
     image: mongo-express
@@ -23,6 +29,9 @@ services:
       ME_CONFIG_BASICAUTH_PASSWORD: mongoexpresspass
     networks:
       - web-and-cloud-application-development_default
+    depends_on:
+      mongo:
+        condition: service_healthy
 
   personalityshop-server:
     image: dstuartkelly/personalityshop-server:1.0.5
@@ -34,9 +43,11 @@ services:
       - PORT=3001
       - MONGO_USER=${MONGO_USER}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
-
     networks:
       - web-and-cloud-application-development_default
+    depends_on:
+      mongo:
+        condition: service_healthy
 
   personalityshop-client:
     image: dstuartkelly/personalityshop-client:1.0.11
