@@ -2,7 +2,13 @@
 
 This is a shared repository for DDG Solutions - 3 Students studying a Higher Diploma in Science in Computing with Dublin Business School
 
-This project is our submission for CA_2 and uses [Terraform](https://www.terraform.io/), [Ansible](https://www.ansible.com/) to create an environment in Azure which will be used as part of the assignment.
+This project is our submission for Cloud Infrastructure and Virtualisation CA_2 and uses [Terraform](https://www.terraform.io/), [Ansible](https://www.ansible.com/), [Docker](https://www.docker.com/) and Docker compose to create an environment in Azure and run a containerised application for this assignment.
+
+The full project report can be found in [report.md](./report.md). Word and PDF versions can be found in [Docs directory](./Docs/)/
+
+The following repositories support this deployment
+[PersonalityShop-Client](https://github.com/DDG-Solutions/PersonalityShop-Client)
+[PersonalityShop-Server](https://github.com/DDG-Solutions/PersonalityShop-Server)
 
 ## Whats in this repo?
 
@@ -13,16 +19,15 @@ This project is our submission for CA_2 and uses [Terraform](https://www.terrafo
 
 [bash-scripts](./bash-scripts/)
 
-- Some initial scripts to perform the work from the [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/)
+- Some initial scripts to perform the work from the [Docker Workshop](https://docs.docker.com/get-started/workshop/02_our_app/) before these were converted to an Ansible role with associated plays and tasks.
 
 [ansible](./ansible/)
 
-- This directory contains an ansible role and associated plays to install and configure docker on a target host/hosts.
+- This directory contains an ansible role and associated plays and tasks to install and configure docker on a target host/hosts, copy our docker compose and env files and ensure that docker compose has been executed.
   [inventory.ini](./ansible/inventory.ini)
   This file should contain a list of the systems you wish to install docker on.
 
 [terraform](./terraform/)
-
 - This directory contains the terraform files required to deploy a virtual machine and associated resources into Azure.
   [main.tf](./terraform/main.tf)  
    Main terraform file which creates the resource group and virtual machine  
@@ -49,6 +54,9 @@ This project is our submission for CA_2 and uses [Terraform](https://www.terrafo
 - [Ansible Collection Documentation](https://docs.ansible.com/projects/ansible/latest/collections/index.html)
 - [Ansible.Builtin Collection](https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/index.html)
 - [DockerHub Nginx - official image](https://hub.docker.com/_/nginx)
+- [Dockerise React Application](https://thedkpatel.medium.com/dockerizing-react-application-built-with-vite-a-simple-guide-4c41eb09defa)
+- [Containerise Node.js Application](https://docs.docker.com/guides/nodejs/containerize/)
+- [Configuring Github Actions](https://docs.docker.com/guides/nodejs/configure-github-actions/)
 
 ## How to deploy stuff and things
 
@@ -95,17 +103,17 @@ cd ../ansible
 ansible-playbook -i inventory.ini docker-playbook.yaml
 ```
 
-### Start the application stack
+### Connect to the Azure host and verify everything is working
 
 SSH onto the server, pull the docker images and start
 
 ```bash
 ssh -i id_rsa_ca2 azureuser@host
-docker compose pull
-docker compose up -d
+docker ps
+docker compose logs
 ```
 
 Test access to the services
-[Mongo Express](http://20.199.43.54:8081/)
-[API Server](http://20.199.43.54:3001/)
-[Personality Shop](http://20.199.43.54/)
+[Mongo Express](http://$HOST:8081)
+[API Server](http://$HOST:3001)
+[Personality Shop](http://$HOST)
