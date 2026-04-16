@@ -149,8 +149,10 @@ With Docker installed on the VM, ansible continues with the application deployme
 
 ## 5. Conclusion
 
-This project demonstrated the end-to-end process of provisioning cloud infrastructure and deploying a containerised multi-component application. By using Terraform for infrastructure provisioning, Ansible for configuration management, and Docker Compose for container orchestration, we achieved a reproducible and automated deployment pipeline.
+This project has demonstrated the end-to-end process of provisioning cloud infrastructure with Infrastructure as Code (IaC), managing devices using Configuration Management tooling, managing docker image builds and releases using Continuous Integration/Continuous Deployment (CI/CD) and deploying a containerised multi-component application. 
 
-The three-component architecture of The Personality Shop - frontend, backend, and database - mapped naturally to a containerised deployment model, with each component isolated in its own container while communicating over a shared Docker network. Key concerns such as data persistence, service dependency ordering, and secrets management were addressed through Docker volumes, health checks, and environment variable substitution respectively.
+By using Terraform for IaC, Ansible for configuration management, GitHub Actions for CI/CD and Docker Compose (via Ansible) for container orchestration, we achieved a reproducible, automated, maintainable deployment pipeline with **Full Audit history**.
 
-The project reinforced the value of Infrastructure as Code for ensuring consistency and repeatability, and highlighted the importance of automation in reducing manual configuration errors. Working as a team across multiple repositories required clear communication and well-defined interfaces between infrastructure and application concerns.
+The three-component architecture of The Personality Shop - frontend, backend, and database - mapped naturally to a containerised deployment model, with each component isolated in its own container while communicating over a shared Docker network. Key concerns such as data persistence, service dependency ordering, and secrets management were addressed through Docker volumes, health checks, and environment variable substitution.
+
+For us, the project reinforced the value of Infrastructure as Code for ensuring consistency and repeatability, and highlighted the importance of automation in reducing manual configuration errors. Working as a team across multiple repositories required clear communication and well-defined interfaces between infrastructure and application concerns.
