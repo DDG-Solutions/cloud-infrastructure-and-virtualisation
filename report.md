@@ -60,8 +60,6 @@ We selected the following technologies for our infrastructure:
 
 ### 2.3 Architecture
 
-![Architecture Diagram](./Docs/architecture-diagram.png)
-
 Our architecture follows a three-layer approach: infrastructure provisioning, configuration management, and application deployment.
 
 Terraform provisions the Azure resources: a resource group, virtual network, subnet, network security group, public IP, network interface, and an Ubuntu 24.04 LTS virtual machine in the France Central region. Terraform also generates an Ansible inventory file as an output, linking the provisioning and configuration stages.
@@ -70,6 +68,11 @@ Ansible then connects to the VM via SSH and executes the Docker role, which inst
 
 Docker Compose (maintained with Ansible) orchestrates the three application containers - MongoDB, the backend server, and the frontend client - on a shared Docker network with appropriate dependency ordering and health checks.
 
+<div style="width: 60%; height: 60%; margin:0 auto;">
+
+![Architecture Diagram](./Docs/architecture-diagram.png)
+
+</div>
 ### 2.4 Security Considerations
 
 Security was addressed at multiple levels:
