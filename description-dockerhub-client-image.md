@@ -70,7 +70,7 @@ location /images
 
 Requests to /api and /images are forwarded to the personalityshop-server container.
 
-### Benefits of this setup:
+### Benefits of using a reverse proxy:
 
 - Simplifies frontend API calls (no need for hardcoded backend URLs)
 - Enables seamless communication between containers
