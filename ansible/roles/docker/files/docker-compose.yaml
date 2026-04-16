@@ -13,7 +13,7 @@ services:
 
   mongo-express:
     image: mongo-express
-    restart: always
+    restart: unless-stopped
     ports:
       - '8081:8081'
     environment:
@@ -25,7 +25,7 @@ services:
       - web-and-cloud-application-development_default
 
   personalityshop-server:
-    image: dstuartkelly/personalityshop-server:1.0.3
+    image: dstuartkelly/personalityshop-server:1.0.5
     container_name: personalityshop-server
     ports:
       - '3001:3001'
@@ -40,7 +40,7 @@ services:
       - web-and-cloud-application-development_default
 
   personalityshop-client:
-    image: dstuartkelly/personalityshop-client:1.0.10
+    image: dstuartkelly/personalityshop-client:1.0.11
     container_name: personalityshop-client
     ports:
       - 5173:5173
