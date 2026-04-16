@@ -156,3 +156,17 @@ By using Terraform for IaC, Ansible for configuration management, GitHub Actions
 The three-component architecture of The Personality Shop - frontend, backend, and database - mapped naturally to a containerised deployment model, with each component isolated in its own container while communicating over a shared Docker network. Key concerns such as data persistence, service dependency ordering, and secrets management were addressed through Docker volumes, health checks, and environment variable substitution.
 
 For us, the project reinforced the value of Infrastructure as Code for ensuring consistency and repeatability, and highlighted the importance of automation in reducing manual configuration errors. Working as a team across multiple repositories required clear communication and well-defined interfaces between infrastructure and application concerns.
+
+## 6. Individual Contributions
+
+This project was completed collaboratively by Daniel Stuart-Kelly, Donal Gallery and Gustavo Brito.
+
+At the beginning of the project we agreed to hold regular meetings to review progress, clarify tasks and agree next steps. Ongoing communication took place in a dedicated WhatsApp group where we coordinated work and raised queries between sessions. We used Git with a feature branch workflow to allow us to work in parallel without overwriting each other's work.
+
+Daniel led all infrastructure and DevOps work including Terraform scripts, Ansible roles and playbooks, setup and maintenance of the Git repositories and implementation of the CI/CD pipelines using GitHub actions for automated docker image builds. He also creted the docker-entrypoint script that checks if the Mongo Products collection is empty and runs the seeding script on first deployment.
+
+Donal containerised the backend application (personalityshop-server), creaating the Dockerfile and handiling Node.js/Express dependencies. He developed the database seeding script for populating Mongo with the initial product data and collabrated with Gustavo on the Docker compose file.
+
+Gustavo containerised the frontend application (personalityshop-client), creating the Dockerfile and optimising the build process with a multi stage build. He collaborated with Donal on the Docker compose configuation to ensure proper service networking and dependencies.
+
+All members contributed to discussions, design decisions, reviews and the final report.
