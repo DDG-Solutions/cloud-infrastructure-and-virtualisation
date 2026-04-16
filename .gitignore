@@ -3,3 +3,4 @@
 .~lock*
 .env
 id_rsa*
+privatekey
