@@ -1,5 +1,31 @@
 # Cloud Infrastructure and Virtualisation - Project Report
 
+## Assignment Cover Sheet
+
+| Student Names       | Student Numbers |
+| ------------------- | --------------- |
+| Daniel Stuart Kelly | 20094266        |
+| Donal Gallery       | 20093916        |
+| Gustavo Brito       | 20093035        |
+
+**Programme**: Higher Diploma in Science in Computing - Full Time Yr1 (Sept 2025 Intake)
+
+**Lecturer Name**: Paul Laird
+
+**Module/Subject Title**: B8IS003 – Cloud Infrastructure and Virtualisation
+
+**Assignment Title**: CA_TWO
+
+**Assignment GitHub Repository**: [https://github.com/DDG-Solutions/cloud-infrastructure-and-virtualisation](https://github.com/DDG-Solutions/cloud-infrastructure-and-virtualisation)
+
+**Related GitHub Repositories**
+
+- [https://github.com/DDG-Solutions/PersonalityShop-Client](https://github.com/DDG-Solutions/PersonalityShop-Client)
+- [https://github.com/DDG-Solutions/PersonalityShop-Server](https://github.com/DDG-Solutions/PersonalityShop-Server)
+
+
+> Note, above are private GitHub Repositories, please provide your GitHub username and we can share it with you on request.
+
 ## 1. Introduction
 
 This report documents the planning, design, and implementation of a private cloud environment for hosting a containerised web application. The scenario involves a medium-sized enterprise requiring an internal application where data sensitivity and regulatory requirements mandate that the application and its data reside within a controlled cloud infrastructure.
