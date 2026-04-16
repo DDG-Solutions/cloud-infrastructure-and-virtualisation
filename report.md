@@ -28,14 +28,14 @@
 
 ## 1. Introduction
 
-This project is our submission for the Cloud Infrastructure and Virtualisation Module in Dublin Business School.
+This project is our submission for the **Cloud Infrastructure and Virtualisation** Module in Dublin Business School.
 
 In our Web and Cloud Application Development module, we created **The Personality Shop** a full-stack e-commerce web application with React, MaterialUI on the frontend, Node.js and Express for the backend, and MongoDB for the database.
 Instead of a typical website, selling typical products, we wanted to do something imaginative and comic. We created a store selling personality traits like good craic, kindness and shamelessness.
 
 For this project, the brief was to take an application, containerise it with a Dockerfile(s), orchestrate it using docker-compose or another platform and build the associated resources and deploy it to a private cloud.
 
-As per the assignment brief, this was initially intended to be run in a private cloud on-premise. However, the resources for this were not available and we were approved to deploy to Azure instead. We have used the Azure for Students subscription kindly provided by DBS. Even though we have deployhed to a different "cloud" we have used Terraform for all of our infrastructure provisioning, which means the same approach will applu to VMWare or any other supported platform, we just need to change out the provider.
+As per the assignment brief, this was initially intended to be run in a private cloud on-premise. However, the resources for this were not available and we were approved to deploy to Azure instead. We have used the Azure for Students subscription kindly provided by DBS. Even though we have deployhed to a different "cloud" we have used Terraform for all of our infrastructure provisioning, which means the same approach will apply to VMWare or any other supported platform, we just need to change out the provider.
 
 
 ## 2. Private Cloud Plan and Design
