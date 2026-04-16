@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "ca2" {
 # Virtual Machine
 # -------------------------------------------------------------------
 resource "azurerm_linux_virtual_machine" "vm" {
-  count               = 2
+  count               = var.number
   name                = "ca2-vm-${count.index}"
   location            = azurerm_resource_group.ca2.location
   resource_group_name = azurerm_resource_group.ca2.name

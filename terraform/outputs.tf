@@ -14,7 +14,7 @@ output "ssh_command" {
 resource "local_file" "ansible_inventory" {
   content = templatefile("${path.module}/../ansible/roles/docker/files/inventory.tpl", {
     vms = [
-      for i in range(2) : {
+      for i in range(var.number) : {
         hostname  = azurerm_linux_virtual_machine.vm[i].name
         public_ip = azurerm_public_ip.pip[i].ip_address
       }

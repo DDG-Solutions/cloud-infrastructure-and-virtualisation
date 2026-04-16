@@ -15,3 +15,9 @@ variable "vm_size" {
   type        = string
   default     = "Standard_B2als_v2"
 }
+
+variable "number" {
+  description = "Count of systems to deploy"
+  type = number
+  default = 2
+}
