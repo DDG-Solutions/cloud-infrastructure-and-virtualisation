@@ -28,11 +28,15 @@
 
 ## 1. Introduction
 
-This report documents the planning, design, and implementation of a private cloud environment for hosting a containerised web application. The scenario involves a medium-sized enterprise requiring an internal application where data sensitivity and regulatory requirements mandate that the application and its data reside within a controlled cloud infrastructure.
+This project is our submission for the Cloud Infrastructure and Virtualisation Module in Dublin Business School.
 
-Our group, DDG Solutions, selected The Personality Shop, a full-stack e-commerce application developed for our Web and Cloud Application Development module, as the application to containerise and deploy. The Personality Shop allows users to browse, search, and purchase personality traits, and comprises three interacting components: a React frontend, a Node.js/Express backend, and a MongoDB database. Supporting services include Firebase for authentication and Stripe for payment processing.
+In our Web and Cloud Application Development module, we created **The Personality Shop** a full-stack e-commerce web application with React, MaterialUI on the frontend, Node.js and Express for the backend, and MongoDB for the database.
+Instead of a typical website, selling typical products, we wanted to do something imaginative and comic. We created a store selling personality traits like good craic, kindness and shamelessness.
 
-The objective of this project was to provision cloud infrastructure using Infrastructure as Code (IaC), containerise all application components using Docker, and orchestrate their deployment using Docker Compose on an Azure-hosted virtual machine.
+For this project, the brief was to take an application, containerise it with a Dockerfile(s), orchestrate it using docker-compose or another platform and build the associated resources and deploy it to a private cloud.
+
+As per the assignment brief, this was initially intended to be run in a private cloud on-premise. However, the resources for this were not available and we were approved to deploy to Azure instead. We have used the Azure for Students subscription kindly provided by DBS. Even though we have deployhed to a different "cloud" we have used Terraform for all of our infrastructure provisioning, which means the same approach will applu to VMWare or any other supported platform, we just need to change out the provider.
+
 
 ## 2. Private Cloud Plan and Design
 
