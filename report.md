@@ -42,42 +42,43 @@ As per the assignment brief, this was initially intended to be run in a private 
 
 ### 2.1 Requirements Analysis
 
-The application required an environment capable of running three containerised services with the following needs:
+Our Personality Shop required an environment capable of running three docker containers with the following needs:
 
-- **Compute**: A Linux virtual machine with sufficient resources to run multiple Docker containers
-- **Networking**: A virtual network with a public IP for SSH access, and internal container networking for inter-service communication
-- **Storage**: Persistent storage for MongoDB data to survive container restarts
-- **Security**: Restricted inbound access, SSH key-based authentication, and sensitive configuration managed through environment variables
+- **Compute**: A Linux virtual machine with sufficient resources.
+- **Networking**: A virtual network with a public IP for external access, and internal container networking for communication between the three services.
+- **Storage**: Persistent storage for MongoDB data to survive container instability or restarts.
+- **Security**: Restricted inbound access using Security Groups, SSH key-based authentication, sensitive configuration managed through environment variables.
 
 ### 2.2 Technology Justification
 
 We selected the following technologies for our infrastructure:
 
-- **Microsoft Azure** - Our team had access to Azure student credits from previous modules. Azure provides a mature cloud platform with comprehensive support for virtual machines, networking, and storage resources.
-- **Terraform** - An industry-standard IaC tool that allows us to define our Azure infrastructure declaratively. Terraform ensures our environment is reproducible and version-controlled.
-- **Ansible** - A configuration management tool used to automate the installation of Docker and its dependencies on the provisioned VM. Ansible connects over SSH and requires no agent on the target machine, making it lightweight and well-suited to our setup.
-- **Docker and Docker Compose** - Docker provides containerisation for each application component, while Docker Compose handles multi-container orchestration, networking, and dependency management.
+- **Microsoft Azure** - Our team had access to Azure student credits from previous modules.
+- **Terraform** - An industry-standard Infrastructure as Code (IaC) tool that allows us to define our Azure infrastructure declaratively. Terraform ensures our environment is reproducible. Keeping the Terraform code and state files in git ensures that it is version-controlled.
+- **Ansible** - A configuration management tool used to automate the installation of Docker and its dependencies, and the management of the docker-compose file on the provisioned VM. Also kept in git to ensure that any changes can be tracked and audited if required Ansible connects over SSH and requires no agent on the target machine, making it lightweight and well-suited to our setup.
+- **Docker and Docker Compose** - Docker containerises our application components, while Docker Compose handles multi-container orchestration, networking, volumes and dependency management. Docker compose is managed by Ansible community.docker.docker_compose_v2 module.
 
 ### 2.3 Architecture
 
-(Note: brief mentions Architecture diagrams)
+![Architecture Diagram](./Docs/architecture-diagram.png)
 
-The architecture follows a three-layer approach: infrastructure provisioning, configuration management, and application deployment.
+Our architecture follows a three-layer approach: infrastructure provisioning, configuration management, and application deployment.
 
 Terraform provisions the Azure resources: a resource group, virtual network, subnet, network security group, public IP, network interface, and an Ubuntu 24.04 LTS virtual machine in the France Central region. Terraform also generates an Ansible inventory file as an output, linking the provisioning and configuration stages.
 
 Ansible then connects to the VM via SSH and executes the Docker role, which installs Docker Engine, Docker CLI, containerd, and the Docker Compose plugin. It also configures user permissions for the docker group.
 
-Finally, Docker Compose orchestrates the three application containers - MongoDB, the backend server, and the frontend client - on a shared Docker network with appropriate dependency ordering and health checks.
+Docker Compose (maintained with Ansible) orchestrates the three application containers - MongoDB, the backend server, and the frontend client - on a shared Docker network with appropriate dependency ordering and health checks.
 
 ### 2.4 Security Considerations
 
 Security was addressed at multiple levels:
 
-- **Network Security Group (NSG)**: The Azure NSG restricts inbound traffic to SSH (port 22) only. Application ports are not exposed directly to the internet.
 - **SSH Key Authentication**: Password authentication is disabled on the VM. Access is restricted to SSH key pairs.
+- **Network Security Group (NSG)**: The Azure NSG restricts inbound traffic. SSH Traffic (port 22) and Mongo-Express (port 8081) is only allowed from specific sources. Backend Application ports are not exposed directly to the internet. Only HTTP (port 80) allows all incoming connections.
 - **Environment Variables**: Sensitive values such as database credentials, Stripe API keys, and connection strings are stored in a `.env` file which is excluded from version control via `.gitignore`. A `.env.template` is provided as a reference for team members.
-- **Container Isolation**: Each application component runs in its own container with defined network boundaries. MongoDB is not exposed to the host network beyond what is required for the application.
+- **Container Isolation**: Each application component runs in its own container with defined network boundaries. MongoDB and our Backend API are not exposed to the host network beyond what is required for the application.
+- **SSL/TLS Certificates** For this deployment, we are serving the frontend on HTTP without encryption. This is fine for a demo environment and internal testing, but obviously not suitable for production. If we had a registered domain name, we would implement HTTPS using cert-manager with Let's Encrypt. Cert-manager automates the entire certificate lifecycle — it requests certificates from Let's Encrypt via the ACME protocol, handles the domain validation challenge, installs the certificates, and automatically renews them before they expire.
 
 ## 3. Containerisation Strategy
 
