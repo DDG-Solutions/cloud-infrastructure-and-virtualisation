@@ -19,5 +19,5 @@ variable "vm_size" {
 variable "number" {
   description = "Count of systems to deploy"
   type = number
-  default = 2
+  default = 1
 }
